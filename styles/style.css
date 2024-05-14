@@ -1,0 +1,41 @@
+body {
+  background-image: url("../img/bg.jpg");
+}
+
+.main {
+  text-align: center;
+  margin-top: 5%;
+}
+.content {
+  padding: 1%;
+  margin: 0 auto;
+  border-radius: 20px;
+  width: 20%;
+  background-color: #212936;
+}
+.img {
+  border-radius: 20px;
+  max-width: 100%;
+}
+.text-1 {
+  color: #e5e7eb;
+  font-size: 17px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.text-2 {
+  color: #4d5562;
+}
+.range {
+  width: 100%;
+}
+.music-1 {
+  width: 15%;
+}
+.music-2 {
+  width: 15%;
+  border-radius: 40px;
+  background-color: #c93b76;
+}
+.play {
+  margin-top: 10%;
+}
