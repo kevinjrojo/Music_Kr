@@ -39,3 +39,11 @@ body {
 .play {
   margin-top: 10%;
 }
+@media (300px <= width <= 900px) {
+  .main {
+    margin-top: 20%;
+  }
+  .content {
+    width: 50%;
+  }
+}
