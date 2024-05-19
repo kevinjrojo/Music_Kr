@@ -16,4 +16,14 @@ song.addEventListener("timeupdate", function () {
   /*console.log(time1);*/
 });
 
+const play = document.querySelector(".music-2");
+
+play.addEventListener("click", () => {
+  if (song.paused) {
+    song.play();
+  } else {
+    song.pause();
+  }
+});
+
 /*toFixed(2)*/
