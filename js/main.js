@@ -17,10 +17,17 @@ song.addEventListener("timeupdate", function () {
 });
 
 const play = document.querySelector(".music-2");
+const reproductor = document.querySelector(".play");
 
 play.addEventListener("click", () => {
   if (song.paused) {
     song.play();
+    reproductor.innerHTML = `<img src="./img/Stop_and_play_fill-1.svg" alt="" class="music-1" />
+                             <img src="./img/boton-de-pausa.png" alt="" class="music-2" />
+                            <img
+                            src="./img//Stop_and_play_fill_reverse.svg"
+                            alt=""
+                            class="music-1"/>`;
   } else {
     song.pause();
   }
