@@ -16,21 +16,20 @@ song.addEventListener("timeupdate", function () {
   /*console.log(time1);*/
 });
 
-const play = document.querySelector(".music-2");
-const reproductor = document.querySelector(".play");
+const play = document.querySelector(".play");
+const reproductor = document.querySelector(".play-1");
+const pausa = document.querySelector(".pause");
 
 play.addEventListener("click", () => {
-  if (song.paused) {
-    song.play();
-    reproductor.innerHTML = `<img src="./img/Stop_and_play_fill-1.svg" alt="" class="music-1" />
-                             <img src="./img/boton-de-pausa.png" alt="" class="music-2" />
-                            <img
-                            src="./img//Stop_and_play_fill_reverse.svg"
-                            alt=""
-                            class="music-1"/>`;
-  } else {
-    song.pause();
-  }
+  song.paused = song.play();
+  play.classList.toggle("pause");
+  pausa.classList.toggle("pause");
+});
+
+pausa.addEventListener("click", () => {
+  song.paused = song.pause();
+  play.classList.toggle("pause");
+  pausa.classList.toggle("pause");
 });
 
 /*toFixed(2)*/

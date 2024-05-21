@@ -46,18 +46,30 @@ body {
   height: 8px;
 }
 
-.music-1 {
+.izquierda {
   padding-left: 4%;
   padding-right: 4%;
   width: 14%;
   margin-bottom: 2%;
 }
-.music-2 {
-  width: 18%;
-  border-radius: 30px;
-  background-color: #c93b76;
+.derecha {
+  padding-left: 4%;
+  padding-right: 4%;
+  width: 14%;
+  margin-bottom: 2%;
 }
 .play {
+  width: 18%;
+  border-radius: 30px;
+}
+.pause {
+  display: none;
+}
+.pause-1 {
+  width: 18%;
+  border-radius: 30px;
+}
+.play-1 {
   margin-top: 10%;
 }
 .duracion {
