@@ -13,3 +13,10 @@ export const cancion2 = {
   cantante: "Lesfm",
   imagen: "./img/cover-2.png",
 };
+export const cancion3 = {
+  cancion:
+    "https://www.dropbox.com/scl/fi/dm833oycyqdbkcqbfejdx/lost-in-city-lights-145038.mp3?rlkey=ey19q14i8z0xni3s0t2vs27g2&st=g0th6aym&dl=1",
+  nombre: "Forest Lullaby",
+  cantante: "Lesfm",
+  imagen: "./img/cover-2.png",
+};

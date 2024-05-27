@@ -1,10 +1,10 @@
-import { cancion1, cancion2 } from "./canciones.js";
+import { cancion1, cancion2, cancion3 } from "./canciones.js";
 
 let cambio = document.querySelector(".cambiar");
-let musicas = [cancion1, cancion2];
+let musicas = [cancion1, cancion2, cancion3];
 let posicion = 0;
 
-function mostrarCaniones(obj) {
+function mostrarCanciones(obj) {
   cambio.innerHTML = `<img src=${obj.imagen} alt="imagen" class="img" />
   <p class="text-1">${obj.nombre}</p>
   <p class="text-2">${obj.cantante}</p>
@@ -20,7 +20,6 @@ function mostrarCaniones(obj) {
   final.textContent = "0";
   div.appendChild(final);
   let song = new Audio(obj.cancion);
-
   song.src = obj.cancion;
   cambio.appendChild(song);
   const range = document.createElement("input");
@@ -32,13 +31,21 @@ function mostrarCaniones(obj) {
   range.id = "range";
   cambio.appendChild(range);
 
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
+  }
+
   song.addEventListener("loadedmetadata", () => {
     range.max = song.duration;
-    final.textContent = song.duration;
+    final.textContent = formatTime(song.duration);
   });
   song.addEventListener("timeupdate", () => {
     range.value = song.currentTime;
-    inicio.textContent = range.value;
+    inicio.textContent = formatTime(song.currentTime);
   });
   range.addEventListener("input", () => {
     song.currentTime = range.value;
@@ -55,26 +62,32 @@ function mostrarCaniones(obj) {
     play.classList.toggle("pause");
     pausa.classList.toggle("pause");
   });
+
   const siguiente = document.querySelector(".derecha");
+
   siguiente.addEventListener("click", () => {
+    posicion++;
     if (posicion < musicas.length - 1) {
       posicion++;
-      mostrarCaniones(musicas[1]);
+      mostrarCanciones(posicion);
     } else {
-      siguiente.disableb = true;
+      siguiente.disabled = true;
       console.log("no hay mas musica");
     }
-    siguiente.disableb = false;
   });
   const anterior = document.querySelector(".izquierda");
   anterior.addEventListener("click", () => {
-    mostrarCaniones(cancion1);
+    if (posicion > 0) {
+      posicion--;
+      mostrarCanciones(posicion);
+    } else {
+      anterior.disabled = true;
+      console.log("no hay mas musica");
+    }
   });
 }
-
-mostrarCaniones(cancion1);
-
-const reproductor = document.querySelector(".play-1");
+posicion = musicas[posicion];
+mostrarCanciones(posicion);
 
 /*
 
