@@ -1,61 +1,114 @@
-/* Empezamos llamando a las etiquetas HTML con para asignales los eventos*/
+import { cancion1, cancion2 } from "./canciones.js";
 
-const song = document.querySelector(".sonido");
-const time = document.querySelector(".range");
-const min = document.querySelector(".cero");
+let cambio = document.querySelector(".cambiar");
+let musicas = [cancion1, cancion2];
+let posicion = 0;
 
-/*tomamos el tiempo que dura la cancion*/
+function mostrarCaniones(obj) {
+  cambio.innerHTML = `<img src=${obj.imagen} alt="imagen" class="img" />
+  <p class="text-1">${obj.nombre}</p>
+  <p class="text-2">${obj.cantante}</p>
+   
+`;
+  const div = document.createElement("div");
+  div.id = "duracion";
+  cambio.appendChild(div);
+  const inicio = document.createElement("p");
+  inicio.textContent = "0";
+  div.appendChild(inicio);
+  const final = document.createElement("p");
+  final.textContent = "0";
+  div.appendChild(final);
+  let song = new Audio(obj.cancion);
 
-song.addEventListener("loadedmetadata", function () {
-  time.max = song.duration;
-});
+  song.src = obj.cancion;
+  cambio.appendChild(song);
+  const range = document.createElement("input");
+  range.type = "range";
+  range.min = 0;
+  range.max = 100;
+  range.step = 0.1;
+  range.value = 0;
+  range.id = "range";
+  cambio.appendChild(range);
 
-song.addEventListener("timeupdate", function () {
-  time.value = song.currentTime;
+  song.addEventListener("loadedmetadata", () => {
+    range.max = song.duration;
+    final.textContent = song.duration;
+  });
+  song.addEventListener("timeupdate", () => {
+    range.value = song.currentTime;
+    inicio.textContent = range.value;
+  });
+  range.addEventListener("input", () => {
+    song.currentTime = range.value;
+  });
+  const play = document.querySelector(".play");
+  play.addEventListener("click", () => {
+    song.play();
+    play.classList.toggle("pause");
+    pausa.classList.toggle("pause");
+  });
+  const pausa = document.querySelector(".pause");
+  pausa.addEventListener("click", () => {
+    song.pause();
+    play.classList.toggle("pause");
+    pausa.classList.toggle("pause");
+  });
+  const siguiente = document.querySelector(".derecha");
+  siguiente.addEventListener("click", () => {
+    if (posicion < musicas.length - 1) {
+      posicion++;
+      mostrarCaniones(musicas[1]);
+    } else {
+      siguiente.disableb = true;
+      console.log("no hay mas musica");
+    }
+    siguiente.disableb = false;
+  });
+  const anterior = document.querySelector(".izquierda");
+  anterior.addEventListener("click", () => {
+    mostrarCaniones(cancion1);
+  });
+}
 
-  let time1 = time.value;
+mostrarCaniones(cancion1);
 
-  min.textContent = `${time1}`;
-
-  /*console.log(time1);*/
-});
-
-const play = document.querySelector(".play");
 const reproductor = document.querySelector(".play-1");
-const pausa = document.querySelector(".pause");
 
-let musica1 =
-  "https://www.dropbox.com/scl/fi/bk10z96o4wg3f0t5ily0u/forest-lullaby-110624.wav?rlkey=0tuvn7igyfvmbon9l0reohi3y&st=ta9y52pz&dl=1";
-let musica2 =
-  "https://www.dropbox.com/scl/fi/dm833oycyqdbkcqbfejdx/lost-in-city-lights-145038.mp3?rlkey=ey19q14i8z0xni3s0t2vs27g2&st=g0th6aym&dl=1";
+/*
 
-let musicas = [musica1, musica2];
 
-play.addEventListener("click", () => {
-  if (song.src === "") {
-    song.src = musica1;
-    song.paused = song.play();
-    play.classList.toggle("pause");
-    pausa.classList.toggle("pause");
+
+
+
+
+siguiente.addEventListener("click", () => {
+  if (posicion < musicas.length - 1) {
+    posicion++;
+    elementos();
   } else {
-    song.paused = song.play();
-    play.classList.toggle("pause");
-    pausa.classList.toggle("pause");
+    siguiente.disableb = true;
+    console.log("no hay mas musica");
   }
-
-  /*for (let i = 0; i < musicas.length; i++) {
-    song.src = musicas;
-  }*/
+  siguiente.disableb = false;
 });
 
-pausa.addEventListener("click", () => {
-  song.paused = song.pause();
-  play.classList.toggle("pause");
-  pausa.classList.toggle("pause");
-});
+function elementos() {
+  song.src = musicas[posicion];
+  siguiente.disableb = posicion === musicas.length - 1;
+  anterior.disableb = posicion === 0;
+}
 
-const Siguiente = document.querySelector(".derecha");
-const anterior = document.querySelector(".izquierda");
-const cambio = document.querySelector(".cambiar");
 
-Siguiente.addEventListener("click", () => {});
+
+anterior.addEventListener("click", () => {
+  if (posicion > 0) {
+    posicion--;
+    elementos();
+  } else {
+    anterior.disableb = true;
+    console.log("no hay mas musica");
+  }
+  siguiente.disableb = false;
+});*/
