@@ -2,6 +2,7 @@ import { cancion1, cancion2, cancion3 } from "./canciones.js";
 
 let cambio = document.querySelector(".cambiar");
 let musicas = [cancion1, cancion2, cancion3];
+
 let posicion = 0;
 
 function mostrarCanciones(obj) {
@@ -62,35 +63,45 @@ function mostrarCanciones(obj) {
     play.classList.toggle("pause");
     pausa.classList.toggle("pause");
   });
-
   const siguiente = document.querySelector(".derecha");
-
   siguiente.addEventListener("click", () => {
-    posicion++;
     if (posicion < musicas.length - 1) {
       posicion++;
-      mostrarCanciones(posicion);
+      mostrarCanciones(musicas[posicion]);
+      console.log(musicas[posicion]);
     } else {
-      siguiente.disabled = true;
+      siguiente.disableb = true;
       console.log("no hay mas musica");
     }
   });
-  const anterior = document.querySelector(".izquierda");
-  anterior.addEventListener("click", () => {
+  document.querySelector(".izquierda").addEventListener("click", () => {
     if (posicion > 0) {
       posicion--;
-      mostrarCanciones(posicion);
+      mostrarCanciones(musicas[posicion]);
     } else {
-      anterior.disabled = true;
       console.log("no hay mas musica");
     }
   });
+
+  elementos();
 }
-posicion = musicas[posicion];
-mostrarCanciones(posicion);
+
+function elementos() {
+  song.src = musicas[posicion].cancion;
+  siguiente.disabled = posicion === musicas.length - 1;
+  anterior.disabled = posicion === 0;
+}
+
+console.log();
+
+mostrarCanciones(musicas[posicion]);
 
 /*
-
+function elementos() {
+  song.src = musicas[posicion];
+  siguiente.disableb = posicion === musicas.length - 1;
+  anterior.disableb = posicion === 0;
+}
 
 
 
