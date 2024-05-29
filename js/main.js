@@ -22,6 +22,7 @@ function mostrarCanciones(obj) {
   div.appendChild(final);
   let song = new Audio(obj.cancion);
   song.src = obj.cancion;
+  song.autoplay = true;
   cambio.appendChild(song);
   const range = document.createElement("input");
   range.type = "range";
@@ -46,17 +47,22 @@ function mostrarCanciones(obj) {
   });
   song.addEventListener("timeupdate", () => {
     range.value = song.currentTime;
+    range.min = formatTime(song.currentTime);
     inicio.textContent = formatTime(song.currentTime);
   });
+
   range.addEventListener("input", () => {
     song.currentTime = range.value;
   });
+
   const play = document.querySelector(".play");
+
   play.addEventListener("click", () => {
     song.play();
     play.classList.toggle("pause");
     pausa.classList.toggle("pause");
   });
+
   const pausa = document.querySelector(".pause");
   pausa.addEventListener("click", () => {
     song.pause();
@@ -65,7 +71,7 @@ function mostrarCanciones(obj) {
   });
   const siguiente = document.querySelector(".derecha");
   siguiente.addEventListener("click", () => {
-    if (posicion < musicas.length - 1) {
+    if (posicion < musicas.length) {
       posicion++;
       mostrarCanciones(musicas[posicion]);
       console.log(musicas[posicion]);
@@ -73,6 +79,7 @@ function mostrarCanciones(obj) {
       siguiente.disableb = true;
       console.log("no hay mas musica");
     }
+    musicas[posicion - 1] = disableb;
   });
   document.querySelector(".izquierda").addEventListener("click", () => {
     if (posicion > 0) {
@@ -92,9 +99,14 @@ function elementos() {
   anterior.disabled = posicion === 0;
 }
 
-console.log();
-
 mostrarCanciones(musicas[posicion]);
+
+function fin() {
+  if (range.value == song.duration) {
+    posicion++;
+    mostrarCanciones(musicas[posicion]);
+  }
+}
 
 /*
 function elementos() {
