@@ -34,8 +34,7 @@ function mostrarCanciones(obj) {
 
   song.src = obj.cancion;
   song.load();
-  song.autoplay = true;
-  cambio.appendChild(song);
+
   const range = document.createElement("input");
   range.type = "range";
   range.min = 0;
@@ -51,7 +50,6 @@ function mostrarCanciones(obj) {
   });
   song.addEventListener("timeupdate", () => {
     range.value = song.currentTime;
-    range.min = formatTime(song.currentTime);
     inicio.textContent = formatTime(song.currentTime);
   });
 
@@ -70,51 +68,67 @@ function formatTime(seconds) {
 }
 
 function actualizarControles() {
-  play = document.querySelector(".play");
-  anterior = document.querySelector(".izquierda");
-  pausa = document.querySelector(".pause");
-  siguiente = document.querySelector(".derecha");
+  reproductor.innerHTML = "";
+  const izquierda = document.createElement("img");
+  izquierda.src = "./img/Stop_and_play_fill-1.svg";
+  izquierda.alt = "imagen";
+  izquierda.classList.add("izquierda");
+  reproductor.appendChild(izquierda);
+
+  const play = document.createElement("img");
+  play.src = "./img/boton-de-play (1).png";
+  play.alt = "imagen";
+  play.classList.add("play");
+  reproductor.appendChild(play);
+
+  const pausa = document.createElement("img");
+  pausa.src = "./img/boton-de-pausa.png";
+  pausa.alt = "imagen";
+  pausa.classList.add("pause-1");
+  reproductor.appendChild(pausa);
+
+  const derecha = document.createElement("img");
+  derecha.src = "./img//Stop_and_play_fill_reverse.svg";
+  derecha.alt = "imagen";
+  derecha.classList.add("derecha");
+  reproductor.appendChild(derecha);
 
   play.removeEventListener("click", handelPlay);
   pausa.removeEventListener("click", playOff);
-  siguiente.removeEventListener("click", sig);
-  anterior.removeEventListener("click", ant);
+  derecha.removeEventListener("click", sig);
+  izquierda.removeEventListener("click", ant);
 
   play.addEventListener("click", handelPlay);
   pausa.addEventListener("click", playOff);
-  siguiente.addEventListener("click", sig);
-  anterior.addEventListener("click", ant);
+  derecha.addEventListener("click", sig);
+  izquierda.addEventListener("click", ant);
 
-  siguiente.disabled = posicion === musicas.length - 1;
-  anterior.disabled = posicion === 0;
+  derecha.disabled = posicion === musicas.length - 1;
+  izquierda.disabled = posicion === 0;
 
   function handelPlay() {
     song.play();
-    play.classList.toggle("pause");
-    pausa.classList.toggle("pause");
   }
 
   function playOff() {
     song.pause();
-    play.classList.toggle("pause");
-    pausa.classList.toggle("pause");
   }
 
   function sig() {
     if (posicion < musicas.length - 1) {
-      posicion++;
+      ++posicion;
       mostrarCanciones(musicas[posicion]);
     } else {
-      siguiente.disableb = true;
       console.log("no hay mas musica");
     }
+    song.play();
   }
+
   function ant() {
     if (posicion > 0) {
-      posicion--;
+      --posicion;
       mostrarCanciones(musicas[posicion]);
     } else {
-      siguiente.disableb = true;
       console.log("no hay mas musica");
     }
   }
