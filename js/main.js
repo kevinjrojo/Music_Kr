@@ -51,6 +51,7 @@ function mostrarCanciones(obj) {
   song.addEventListener("timeupdate", () => {
     range.value = song.currentTime;
     inicio.textContent = formatTime(song.currentTime);
+    const valor = formatTime(song.currentTime);
   });
 
   range.addEventListener("input", () => {
@@ -84,7 +85,7 @@ function actualizarControles() {
   const pausa = document.createElement("img");
   pausa.src = "./img/boton-de-pausa.png";
   pausa.alt = "imagen";
-  pausa.classList.add("pause-1");
+  pausa.classList.add("pause");
   reproductor.appendChild(pausa);
 
   const derecha = document.createElement("img");
@@ -108,10 +109,15 @@ function actualizarControles() {
 
   function handelPlay() {
     song.play();
+    pausa.classList.remove("pause");
+    pausa.classList.add("pause-1");
+    play.classList.add("pause");
   }
 
   function playOff() {
     song.pause();
+    play.classList.remove("pause");
+    pausa.classList.add("pause");
   }
 
   function sig() {
@@ -134,13 +140,3 @@ function actualizarControles() {
   }
 }
 mostrarCanciones(musicas[posicion]);
-
-/*
-function elementos() {
-  song.src = musicas[posicion];
-  siguiente.disableb = posicion === musicas.length - 1;
-  anterior.disableb = posicion === 0;
-}
-
-
-*/
