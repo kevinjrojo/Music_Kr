@@ -1,7 +1,7 @@
 import { cancion1, cancion2, cancion3 } from "./canciones.js";
 
 let cambio = document.querySelector(".cambiar");
-let reproductor = document.querySelector(".play-1");
+let contenedor = document.querySelector(".content");
 let musicas = [cancion1, cancion2, cancion3];
 let posicion = 0;
 let song = new Audio();
@@ -27,9 +27,11 @@ function mostrarCanciones(obj) {
   cambio.appendChild(div);
   const inicio = document.createElement("p");
   inicio.textContent = "0";
+  inicio.classList.add("time");
   div.appendChild(inicio);
   const final = document.createElement("p");
   final.textContent = "0";
+  final.classList.add("time");
   div.appendChild(final);
 
   song.src = obj.cancion;
@@ -51,7 +53,6 @@ function mostrarCanciones(obj) {
   song.addEventListener("timeupdate", () => {
     range.value = song.currentTime;
     inicio.textContent = formatTime(song.currentTime);
-    const valor = formatTime(song.currentTime);
   });
 
   range.addEventListener("input", () => {
@@ -69,35 +70,32 @@ function formatTime(seconds) {
 }
 
 function actualizarControles() {
-  reproductor.innerHTML = "";
+  const reproductor = document.createElement("div");
+  reproductor.classList.add("play-1");
+  contenedor.appendChild(reproductor);
   const izquierda = document.createElement("img");
   izquierda.src = "./img/Stop_and_play_fill-1.svg";
   izquierda.alt = "imagen";
   izquierda.classList.add("izquierda");
-  reproductor.appendChild(izquierda);
+  contenedor.appendChild(izquierda);
 
   const play = document.createElement("img");
   play.src = "./img/boton-de-play (1).png";
   play.alt = "imagen";
   play.classList.add("play");
-  reproductor.appendChild(play);
+  contenedor.appendChild(play);
 
   const pausa = document.createElement("img");
   pausa.src = "./img/boton-de-pausa.png";
   pausa.alt = "imagen";
   pausa.classList.add("pause");
-  reproductor.appendChild(pausa);
+  contenedor.appendChild(pausa);
 
   const derecha = document.createElement("img");
   derecha.src = "./img//Stop_and_play_fill_reverse.svg";
   derecha.alt = "imagen";
   derecha.classList.add("derecha");
-  reproductor.appendChild(derecha);
-
-  play.removeEventListener("click", handelPlay);
-  pausa.removeEventListener("click", playOff);
-  derecha.removeEventListener("click", sig);
-  izquierda.removeEventListener("click", ant);
+  contenedor.appendChild(derecha);
 
   play.addEventListener("click", handelPlay);
   pausa.addEventListener("click", playOff);
@@ -109,25 +107,26 @@ function actualizarControles() {
 
   function handelPlay() {
     song.play();
-    pausa.classList.remove("pause");
+    pausa.classList.toggle("pause");
     pausa.classList.add("pause-1");
-    play.classList.add("pause");
+    play.classList.toggle("pause");
   }
 
   function playOff() {
     song.pause();
-    play.classList.remove("pause");
-    pausa.classList.add("pause");
+    play.classList.toggle("pause");
+    pausa.classList.toggle("pause");
   }
 
   function sig() {
     if (posicion < musicas.length - 1) {
       ++posicion;
+
       mostrarCanciones(musicas[posicion]);
     } else {
       console.log("no hay mas musica");
     }
-    song.play();
+    song.autoplay = true;
   }
 
   function ant() {
@@ -137,6 +136,7 @@ function actualizarControles() {
     } else {
       console.log("no hay mas musica");
     }
+    handelPlay();
   }
 }
 mostrarCanciones(musicas[posicion]);
