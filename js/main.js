@@ -8,7 +8,6 @@ let song = new Audio();
 let play, pausa, siguiente, anterior, range;
 
 function crearControles() {
-  // Crear controles solo una vez
   const reproductor = document.createElement("div");
   reproductor.classList.add("play-1");
   contenedor.appendChild(reproductor);
@@ -44,10 +43,9 @@ function crearControles() {
 }
 
 function mostrarCanciones(obj) {
-  // Limpiar contenido de la sección cambiar sin borrar los controles
+ 
   cambio.innerHTML = "";
 
-  // Crear y añadir nuevos elementos de canción
   const foto = document.createElement("img");
   foto.src = obj.imagen;
   foto.alt = "imagen";
@@ -153,8 +151,8 @@ function ant() {
   song.autoplay = true;
 }
 
-// Crear controles una vez al inicio
+
 crearControles();
 
-// Mostrar la canción inicial
+
 mostrarCanciones(musicas[posicion]);
